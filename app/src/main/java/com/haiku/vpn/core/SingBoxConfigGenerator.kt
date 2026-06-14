@@ -3,119 +3,154 @@ package com.haiku.vpn.core
 import kotlinx.serialization.json.*
 
 /**
- * Helper class to generate JSON configuration strings for sing-box-core.
+ * Helper class to generate JSON configuration strings for V2Ray/Xray core (libv2ray).
  */
 object SingBoxConfigGenerator {
 
     /**
-     * Generates a complete JSON configuration for sing-box.
-     * Uses TUN inbound to route all traffic on the device through the VLESS Reality proxy.
+     * Generates a complete JSON configuration for v2ray/xray core.
+     * Uses standard V2Ray v4 format compatible with Xray-core in libv2ray.
      */
     fun generate(config: RealityConfig): String {
         return buildJsonObject {
             // Log block
             put("log", buildJsonObject {
-                put("level", "info")
-                put("timestamp", true)
+                put("loglevel", "warning")
             })
 
-            // Inbounds block (TUN interface for Android VPN)
+            // Inbounds block (Standard socks inbound that libv2ray intercepts)
             putJsonArray("inbounds") {
                 add(buildJsonObject {
-                    put("type", "tun")
-                    put("tag", "tun-in")
-                    put("interface_name", "tun0")
-                    put("inet4_address", "172.19.0.1/30")
-                    put("mtu", 1400)
-                    put("auto_route", true)
-                    put("strict_route", true)
-                    put("stack", "gvisor") // gvisor stack works best for mobile userspace TCP/IP
-                    put("sniff", true)
+                    put("port", 10808)
+                    put("protocol", "socks")
+                    put("listen", "127.0.0.1")
+                    put("settings", buildJsonObject {
+                        put("auth", "noauth")
+                        put("udp", true)
+                        put("ip", "127.0.0.1")
+                    })
+                    put("sniffing", buildJsonObject {
+                        put("enabled", true)
+                        putJsonArray("destOverride") {
+                            add("http")
+                            add("tls")
+                        }
+                    })
                 })
             }
 
             // Outbounds block
             putJsonArray("outbounds") {
-                // Main Proxy (VLESS Reality)
+                // Main Proxy (VLESS Reality / TLS)
                 add(buildJsonObject {
-                    put("type", "vless")
+                    put("protocol", "vless")
                     put("tag", "proxy")
-                    put("server", config.address)
-                    put("server_port", config.port)
-                    put("uuid", config.uuid)
-                    if (config.flow.isNotEmpty()) {
-                        put("flow", config.flow)
-                    }
-
-                    // TLS & Reality settings
-                    put("tls", buildJsonObject {
-                        put("enabled", true)
-                        put("server_name", config.sni)
-                        put("utls", buildJsonObject {
-                            put("enabled", true)
-                            put("fingerprint", config.fingerprint)
-                        })
-                        if (config.publicKey.isNotEmpty()) {
-                            put("reality", buildJsonObject {
-                                put("enabled", true)
-                                put("public_key", config.publicKey)
-                                put("short_id", config.shortId)
+                    
+                    put("settings", buildJsonObject {
+                        putJsonArray("vnext") {
+                            add(buildJsonObject {
+                                put("address", config.address)
+                                put("port", config.port)
+                                putJsonArray("users") {
+                                    add(buildJsonObject {
+                                        put("id", config.uuid)
+                                        put("encryption", "none")
+                                        if (config.flow.isNotEmpty()) {
+                                            put("flow", config.flow)
+                                        }
+                                    })
+                                }
                             })
                         }
                     })
-                    
-                    put("packet_encoding", "xudp")
+
+                    // Stream settings
+                    put("streamSettings", buildJsonObject {
+                        val transportNetwork = if (config.network.isNotEmpty()) config.network else "tcp"
+                        put("network", transportNetwork)
+                        
+                        val isReality = config.publicKey.isNotEmpty()
+                        val securityType = if (isReality) "reality" else "tls"
+                        put("security", securityType)
+
+                        if (isReality) {
+                            put("realitySettings", buildJsonObject {
+                                put("show", false)
+                                put("fingerprint", if (config.fingerprint.isNotEmpty()) config.fingerprint else "chrome")
+                                put("serverName", config.sni)
+                                put("publicKey", config.publicKey)
+                                put("shortId", config.shortId)
+                                put("spiderX", "")
+                            })
+                        } else {
+                            put("tlsSettings", buildJsonObject {
+                                put("serverName", config.sni)
+                                put("allowInsecure", false)
+                                put("fingerprint", if (config.fingerprint.isNotEmpty()) config.fingerprint else "chrome")
+                            })
+                        }
+
+                        // Transport settings
+                        if (transportNetwork == "ws") {
+                            put("wsSettings", buildJsonObject {
+                                put("path", config.wsPath)
+                                put("headers", buildJsonObject {
+                                    put("Host", config.sni)
+                                })
+                            })
+                        } else if (transportNetwork == "grpc") {
+                            put("grpcSettings", buildJsonObject {
+                                put("serviceName", config.grpcServiceName)
+                                put("multiMode", true)
+                            })
+                        }
+                    })
                 })
 
-                // Direct connection for local bypass / DNS fallback
+                // Direct connection outbound
                 add(buildJsonObject {
-                    put("type", "direct")
+                    put("protocol", "freedom")
+                    put("settings", buildJsonObject {})
                     put("tag", "direct")
                 })
 
-                // DNS outbound
+                // Blocked connection outbound
                 add(buildJsonObject {
-                    put("type", "dns")
-                    put("tag", "dns-out")
+                    put("protocol", "blackhole")
+                    put("settings", buildJsonObject {})
+                    put("tag", "blocked")
                 })
             }
 
-            // Route rules
-            put("route", buildJsonObject {
+            // Routing rules
+            put("routing", buildJsonObject {
+                put("domainStrategy", "IPIfNonMatch")
                 putJsonArray("rules") {
+                    // Direct bypass for private / local IPs
                     add(buildJsonObject {
-                        putJsonArray("protocol") {
-                            add("dns")
+                        put("type", "field")
+                        put("outboundTag", "direct")
+                        putJsonArray("ip") {
+                            add("geoip:private")
                         }
-                        put("outbound", "dns-out")
                     })
+                    // Direct bypass for common local DNS addresses
                     add(buildJsonObject {
-                        put("port", 53)
-                        put("outbound", "dns-out")
+                        put("type", "field")
+                        put("outboundTag", "direct")
+                        putJsonArray("ip") {
+                            add("1.1.1.1")
+                            add("8.8.8.8")
+                        }
                     })
                 }
-                put("auto_detect_interface", true)
             })
 
-            // DNS servers
+            // DNS settings
             put("dns", buildJsonObject {
                 putJsonArray("servers") {
-                    add(buildJsonObject {
-                        put("tag", "dns-proxy")
-                        put("address", "8.8.8.8")
-                        put("detour", "proxy")
-                    })
-                    add(buildJsonObject {
-                        put("tag", "dns-direct")
-                        put("address", "1.1.1.1")
-                        put("detour", "direct")
-                    })
-                }
-                putJsonArray("rules") {
-                    add(buildJsonObject {
-                        put("outbound", "direct")
-                        put("server", "dns-direct")
-                    })
+                    add("1.1.1.1")
+                    add("8.8.8.8")
                 }
             })
         }.toString()
