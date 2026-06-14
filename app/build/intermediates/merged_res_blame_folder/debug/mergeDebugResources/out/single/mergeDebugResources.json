@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.haiku.vpn.app-debug-4:/drawable_ic_haiku_logo_backup.png.flat",
+        "source": "com.haiku.vpn.app-main-6:/drawable/ic_haiku_logo_backup.png"
+    },
+    {
+        "merged": "C:\\Users\\dlapo\\.gradle\\daemon\\9.3.0\\com.haiku.vpn.app-debug-4:\\drawable_ic_haiku_logo.png.flat",
+        "source": "C:\\Users\\dlapo\\.gradle\\daemon\\9.3.0\\com.haiku.vpn.app-main-6:\\drawable\\ic_haiku_logo.png"
+    },
+    {
+        "merged": "com.haiku.vpn.app-debug-4:/drawable_ic_haiku_logo.png.flat",
+        "source": "com.haiku.vpn.app-main-6:/drawable/ic_haiku_logo.png"
+    }
+]

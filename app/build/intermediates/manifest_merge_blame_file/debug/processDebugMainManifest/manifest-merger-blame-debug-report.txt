@@ -1,0 +1,292 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.haiku.vpn"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permissions required for VPN service and general features -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:6:5-67
+12-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:7:22-76
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+14-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:8:5-77
+14-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:8:22-74
+15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+15-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:9:5-89
+15-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:9:22-86
+16    <uses-permission android:name="android.permission.CAMERA" />
+16-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:10:5-65
+16-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:10:22-62
+17
+18    <!-- Declare Camera support -->
+19    <uses-feature
+19-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:13:5-85
+20        android:name="android.hardware.camera"
+20-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:13:19-57
+21        android:required="false" />
+21-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:13:58-82
+22
+23    <permission
+23-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+24        android:name="com.haiku.vpn.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+24-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+25        android:protectionLevel="signature" />
+25-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+26
+27    <uses-permission android:name="com.haiku.vpn.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+27-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+27-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+28
+29    <application
+29-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:15:5-47:19
+30        android:allowBackup="false"
+30-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:16:9-36
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.12.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\ce790bf17c725f9b3599baca98b76a84\workspace\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+32        android:debuggable="true"
+33        android:extractNativeLibs="false"
+34        android:icon="@drawable/ic_haiku_logo"
+34-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:17:9-47
+35        android:label="@string/app_name"
+35-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:18:9-41
+36        android:supportsRtl="true"
+36-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:19:9-35
+37        android:testOnly="true"
+38        android:theme="@android:style/Theme.Material.Light.NoActionBar" >
+38-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:20:9-72
+39        <activity
+39-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:23:9-32:20
+40            android:name="com.haiku.vpn.MainActivity"
+40-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:24:13-41
+41            android:exported="true"
+41-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:25:13-36
+42            android:theme="@android:style/Theme.Material.Light.NoActionBar"
+42-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:26:13-76
+43            android:windowSoftInputMode="adjustResize" >
+43-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:27:13-55
+44            <intent-filter>
+44-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:28:13-31:29
+45                <action android:name="android.intent.action.MAIN" />
+45-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:29:17-69
+45-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:29:25-66
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:30:17-77
+47-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:30:27-74
+48            </intent-filter>
+49        </activity>
+50
+51        <!-- The VPN Service declaration -->
+52        <service
+52-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:35:9-45:19
+53            android:name="com.haiku.vpn.core.HaikuVpnService"
+53-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:36:13-49
+54            android:exported="false"
+54-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:39:13-37
+55            android:foregroundServiceType="specialUse"
+55-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:38:13-55
+56            android:permission="android.permission.BIND_VPN_SERVICE" >
+56-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:37:13-69
+57            <intent-filter>
+57-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:40:13-42:29
+58                <action android:name="android.net.VpnService" />
+58-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:41:17-65
+58-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:41:25-62
+59            </intent-filter>
+60
+61            <property
+61-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:43:13-44:115
+62                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+62-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:43:23-82
+63                android:value="VPN service to route anti-censorship configurations securely via sing-box core." />
+63-->C:\Users\dlapo\.gemini\antigravity\scratch\haiku_vpn\app\src\main\AndroidManifest.xml:44:17-112
+64        </service>
+65        <service
+65-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:24:9-33:19
+66            android:name="androidx.camera.core.impl.MetadataHolderService"
+66-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:25:13-75
+67            android:enabled="false"
+67-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:26:13-36
+68            android:exported="false" >
+68-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:27:13-37
+69            <meta-data
+69-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:30:13-32:89
+70                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+70-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:31:17-103
+71                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+71-->[androidx.camera:camera-camera2:1.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1005c1b183ecb0754f9333d46a09f4b\workspace\transformed\jetified-camera-camera2-1.4.0\AndroidManifest.xml:32:17-86
+72        </service>
+73        <service
+73-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:9:9-15:19
+74            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+74-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:10:13-91
+75            android:directBootAware="true"
+75-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:17:13-43
+76            android:exported="false" >
+76-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:11:13-37
+77            <meta-data
+77-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:12:13-14:85
+78                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+78-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:13:17-120
+79                android:value="com.google.firebase.components.ComponentRegistrar" />
+79-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\3d846330472ddec48543931d2e3d4558\workspace\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:14:17-82
+80            <meta-data
+80-->[com.google.mlkit:vision-common:17.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\dba0b76a4f3765aceb104498f5d4c76d\workspace\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+81                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+81-->[com.google.mlkit:vision-common:17.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\dba0b76a4f3765aceb104498f5d4c76d\workspace\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:13:17-124
+82                android:value="com.google.firebase.components.ComponentRegistrar" />
+82-->[com.google.mlkit:vision-common:17.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\dba0b76a4f3765aceb104498f5d4c76d\workspace\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:14:17-82
+83            <meta-data
+83-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:20:13-22:85
+84                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+84-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:21:17-120
+85                android:value="com.google.firebase.components.ComponentRegistrar" />
+85-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:22:17-82
+86        </service>
+87
+88        <provider
+88-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:9:9-13:38
+89            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+89-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:10:13-78
+90            android:authorities="com.haiku.vpn.mlkitinitprovider"
+90-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:11:13-69
+91            android:exported="false"
+91-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:12:13-37
+92            android:initOrder="99" />
+92-->[com.google.mlkit:common:18.11.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\c5087858c3b305bf0ac8bd459cd0609b\workspace\transformed\jetified-common-18.11.0\AndroidManifest.xml:13:13-35
+93
+94        <activity
+94-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4ccea82c7c6b77438da28ebc1d35289b\workspace\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+95            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+95-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4ccea82c7c6b77438da28ebc1d35289b\workspace\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+96            android:exported="false"
+96-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4ccea82c7c6b77438da28ebc1d35289b\workspace\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+97            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+97-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4ccea82c7c6b77438da28ebc1d35289b\workspace\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+98
+99        <meta-data
+99-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\7f8191eeec3871488333b30267aebe1b\workspace\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+100            android:name="com.google.android.gms.version"
+100-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\7f8191eeec3871488333b30267aebe1b\workspace\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+101            android:value="@integer/google_play_services_version" />
+101-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\7f8191eeec3871488333b30267aebe1b\workspace\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+102
+103        <activity
+103-->[androidx.compose.ui:ui-tooling-android:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\623f080e5d5884320a0a944b00ae00d9\workspace\transformed\jetified-ui-tooling-release\AndroidManifest.xml:23:9-25:39
+104            android:name="androidx.compose.ui.tooling.PreviewActivity"
+104-->[androidx.compose.ui:ui-tooling-android:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\623f080e5d5884320a0a944b00ae00d9\workspace\transformed\jetified-ui-tooling-release\AndroidManifest.xml:24:13-71
+105            android:exported="true" />
+105-->[androidx.compose.ui:ui-tooling-android:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\623f080e5d5884320a0a944b00ae00d9\workspace\transformed\jetified-ui-tooling-release\AndroidManifest.xml:25:13-36
+106
+107        <provider
+107-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+108            android:name="androidx.startup.InitializationProvider"
+108-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+109            android:authorities="com.haiku.vpn.androidx-startup"
+109-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+110            android:exported="false" >
+110-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
+111            <meta-data
+111-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+112                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+112-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+113                android:value="androidx.startup" />
+113-->[androidx.emoji2:emoji2:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\0be2e09239a2a018c1dd4b70e17dfbba\workspace\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+114            <meta-data
+114-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1ede13935eb659b4f81fb3946d605ad\workspace\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+115                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+115-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1ede13935eb659b4f81fb3946d605ad\workspace\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+116                android:value="androidx.startup" />
+116-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\b1ede13935eb659b4f81fb3946d605ad\workspace\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+117            <meta-data
+117-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+118                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+119                android:value="androidx.startup" />
+119-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+120        </provider>
+121
+122        <activity
+122-->[androidx.compose.ui:ui-test-manifest:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\bb76db324166e64983f2e62a83c182f4\workspace\transformed\jetified-ui-test-manifest-1.6.3\AndroidManifest.xml:23:9-25:39
+123            android:name="androidx.activity.ComponentActivity"
+123-->[androidx.compose.ui:ui-test-manifest:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\bb76db324166e64983f2e62a83c182f4\workspace\transformed\jetified-ui-test-manifest-1.6.3\AndroidManifest.xml:24:13-63
+124            android:exported="true" />
+124-->[androidx.compose.ui:ui-test-manifest:1.6.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\bb76db324166e64983f2e62a83c182f4\workspace\transformed\jetified-ui-test-manifest-1.6.3\AndroidManifest.xml:25:13-36
+125
+126        <receiver
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+127            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+128            android:directBootAware="false"
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+129            android:enabled="true"
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+130            android:exported="true"
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+131            android:permission="android.permission.DUMP" >
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+133                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+134            </intent-filter>
+135            <intent-filter>
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+136                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+137            </intent-filter>
+138            <intent-filter>
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+139                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+140            </intent-filter>
+141            <intent-filter>
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+142                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\127f69da0e146fceabf67c52ea43449f\workspace\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+143            </intent-filter>
+144        </receiver>
+145
+146        <service
+146-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
+147            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+147-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:30:13-103
+148            android:exported="false" >
+148-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:31:13-37
+149            <meta-data
+149-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:32:13-34:39
+150                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+150-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:33:17-94
+151                android:value="cct" />
+151-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\8a09399c142145ef0fd799f251d306eb\workspace\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:34:17-36
+152        </service>
+153        <service
+153-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:26:9-30:19
+154            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+154-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:27:13-117
+155            android:exported="false"
+155-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:28:13-37
+156            android:permission="android.permission.BIND_JOB_SERVICE" >
+156-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:29:13-69
+157        </service>
+158
+159        <receiver
+159-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:32:9-34:40
+160            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+160-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:33:13-132
+161            android:exported="false" />
+161-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\dlapo\.gradle\caches\9.3.0\transforms\4d84e619d19df93c11deafb5860b8102\workspace\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:34:13-37
+162    </application>
+163
+164</manifest>
