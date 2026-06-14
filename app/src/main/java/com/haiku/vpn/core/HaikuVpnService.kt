@@ -132,6 +132,14 @@ class HaikuVpnService : VpnService() {
                     override fun protect(socket: Int): Boolean {
                         return this@HaikuVpnService.protect(socket)
                     }
+
+                    override fun onServiceStopped() {
+                        Log.i(TAG, "SingBox core stopped. Stopping VPN service.")
+                        if (_vpnState.value == VpnState.Connected || _vpnState.value == VpnState.Connecting) {
+                            _vpnState.value = VpnState.Error("Соединение прервано или заблокировано")
+                        }
+                        stopSelf()
+                    }
                 }
 
                 // Instantiate and start sing-box service

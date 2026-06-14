@@ -270,7 +270,49 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Profile & Auth Methods
+    // Profile &     // Local persistent DB helpers for accounts
+    private fun getRegisteredUsers(): MutableMap<String, String> {
+        val jsonStr = sharedPrefs.getString("registered_users", null)
+        if (jsonStr.isNullOrEmpty()) return mutableMapOf()
+        return try {
+            Json.decodeFromString<Map<String, String>>(jsonStr).toMutableMap()
+        } catch (e: Exception) {
+            mutableMapOf()
+        }
+    }
+
+    private fun saveRegisteredUsers(users: Map<String, String>) {
+        sharedPrefs.edit().putString("registered_users", Json.encodeToString(users)).apply()
+    }
+
+    private fun getUserPlans(): MutableMap<String, String> {
+        val jsonStr = sharedPrefs.getString("user_plans", null)
+        if (jsonStr.isNullOrEmpty()) return mutableMapOf()
+        return try {
+            Json.decodeFromString<Map<String, String>>(jsonStr).toMutableMap()
+        } catch (e: Exception) {
+            mutableMapOf()
+        }
+    }
+
+    private fun saveUserPlans(plans: Map<String, String>) {
+        sharedPrefs.edit().putString("user_plans", Json.encodeToString(plans)).apply()
+    }
+
+    private fun getUserExpiries(): MutableMap<String, String> {
+        val jsonStr = sharedPrefs.getString("user_expiries", null)
+        if (jsonStr.isNullOrEmpty()) return mutableMapOf()
+        return try {
+            Json.decodeFromString<Map<String, String>>(jsonStr).toMutableMap()
+        } catch (e: Exception) {
+            mutableMapOf()
+        }
+    }
+
+    private fun saveUserExpiries(expiries: Map<String, String>) {
+        sharedPrefs.edit().putString("user_expiries", Json.encodeToString(expiries)).apply()
+    }
+
     private fun loadProfile() {
         _isLoggedIn.value = sharedPrefs.getBoolean("user_logged_in", false)
         _userEmail.value = sharedPrefs.getString("user_email", "") ?: ""
@@ -280,7 +322,7 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
 
     fun login(emailInput: String, passwordInput: String) {
         _authError.value = null
-        val email = emailInput.trim()
+        val email = emailInput.trim().lowercase()
         val password = passwordInput.trim()
         
         val emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$".toRegex()
@@ -292,19 +334,35 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
             _authError.value = "Пароль должен содержать от 6 символов"
             return
         }
+        
+        val users = getRegisteredUsers()
+        // Auto-register demo account if it doesn't exist
+        if (email == "demo@haikuvpn.org" && !users.containsKey(email)) {
+            users[email] = "123456"
+            saveRegisteredUsers(users)
+        }
+        
+        if (!users.containsKey(email) || users[email] != password) {
+            _authError.value = "Неверная почта или пароль"
+            return
+        }
+        
         viewModelScope.launch {
-            delay(1000) // Simulate network delay
+            delay(1000) // Имитация задержки сети
+            val plan = getUserPlans()[email] ?: "Haiku Free"
+            val expiry = getUserExpiries()[email] ?: "Бессрочно"
+            
             _isLoggedIn.value = true
             _userEmail.value = email
-            _userPlan.value = "Haiku Free"
-            _userExpiry.value = "Бессрочно"
-            saveProfileState(true, email, "Haiku Free", "Бессрочно")
+            _userPlan.value = plan
+            _userExpiry.value = expiry
+            saveProfileState(true, email, plan, expiry)
         }
     }
 
     fun register(emailInput: String, passwordInput: String) {
         _authError.value = null
-        val email = emailInput.trim()
+        val email = emailInput.trim().lowercase()
         val password = passwordInput.trim()
         
         val emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$".toRegex()
@@ -316,8 +374,26 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
             _authError.value = "Пароль должен содержать от 6 символов"
             return
         }
+        
+        val users = getRegisteredUsers()
+        if (users.containsKey(email)) {
+            _authError.value = "Пользователь с такой почтой уже зарегистрирован"
+            return
+        }
+        
         viewModelScope.launch {
-            delay(1000) // Simulate network delay
+            delay(1000) // Имитация задержки сети
+            users[email] = password
+            saveRegisteredUsers(users)
+            
+            val plans = getUserPlans()
+            plans[email] = "Haiku Free"
+            saveUserPlans(plans)
+            
+            val expiries = getUserExpiries()
+            expiries[email] = "Бессрочно"
+            saveUserExpiries(expiries)
+            
             _isLoggedIn.value = true
             _userEmail.value = email
             _userPlan.value = "Haiku Free"
@@ -335,12 +411,34 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun upgradeToPremium() {
+        val email = _userEmail.value.lowercase()
+        if (email.isEmpty()) return
+        
+        val plans = getUserPlans()
+        plans[email] = "Haiku Premium"
+        saveUserPlans(plans)
+        
+        val expiries = getUserExpiries()
+        expiries[email] = "14.06.2027"
+        saveUserExpiries(expiries)
+        
         _userPlan.value = "Haiku Premium"
         _userExpiry.value = "14.06.2027"
         saveProfileState(true, _userEmail.value, "Haiku Premium", "14.06.2027")
     }
 
     fun cancelPremium() {
+        val email = _userEmail.value.lowercase()
+        if (email.isEmpty()) return
+        
+        val plans = getUserPlans()
+        plans[email] = "Haiku Free"
+        saveUserPlans(plans)
+        
+        val expiries = getUserExpiries()
+        expiries[email] = "Бессрочно"
+        saveUserExpiries(expiries)
+        
         _userPlan.value = "Haiku Free"
         _userExpiry.value = "Бессрочно"
         saveProfileState(true, _userEmail.value, "Haiku Free", "Бессрочно")

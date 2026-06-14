@@ -8,4 +8,5 @@ interface PlatformInterface {
     fun useService(): Boolean
     fun openTun(mtu: Int): Int
     fun protect(socket: Int): Boolean
+    fun onServiceStopped()
 }

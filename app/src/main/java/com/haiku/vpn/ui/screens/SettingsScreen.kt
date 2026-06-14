@@ -408,7 +408,24 @@ fun SettingsScreen(
                 // B. URI Input Box
                 OutlinedTextField(
                     value = configText,
-                    onValueChange = { configText = it },
+                    onValueChange = { input ->
+                        configText = input
+                        val trimmed = input.trim()
+                        if (trimmed.startsWith("vless://", ignoreCase = true) && trimmed.length > 20) {
+                            try {
+                                val parsed = RealityConfig.parseFromUri(trimmed)
+                                val added = viewModel.addNode(parsed)
+                                if (added) {
+                                    Toast.makeText(context, "Узел '${parsed.name}' автоматически сохранен", Toast.LENGTH_SHORT).show()
+                                    configText = ""
+                                    onNavigateBack()
+                                }
+                            } catch (e: Exception) {
+                                // Do nothing, user might be editing the key
+                            }
+                        }
+                    },
+                    label = { Text("Вставьте ссылку vless://", color = MossGreen) },
                     placeholder = { Text("vless://...", color = MutedText) },
                     textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
                     modifier = Modifier
@@ -434,7 +451,20 @@ fun SettingsScreen(
                             val pasteText = clipboardManager.getText()?.text ?: ""
                             if (pasteText.isNotEmpty()) {
                                 configText = pasteText
-                                Toast.makeText(context, "Вставлено из буфера обмена", Toast.LENGTH_SHORT).show()
+                                val trimmed = pasteText.trim()
+                                try {
+                                    val parsed = RealityConfig.parseFromUri(trimmed)
+                                    val added = viewModel.addNode(parsed)
+                                    if (added) {
+                                        Toast.makeText(context, "Узел '${parsed.name}' автоматически сохранен", Toast.LENGTH_SHORT).show()
+                                        configText = ""
+                                        onNavigateBack()
+                                    } else {
+                                        Toast.makeText(context, "Узел уже существует", Toast.LENGTH_SHORT).show()
+                                    }
+                                } catch (e: Exception) {
+                                    Toast.makeText(context, "Вставлен неполный ключ. Исправьте его вручную.", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         },
                         modifier = Modifier.weight(1f).height(46.dp),

@@ -106,15 +106,15 @@ object SingBoxConfigGenerator {
                         put("detour", "proxy")
                     })
                     add(buildJsonObject {
-                        put("tag", "dns-local")
-                        put("address", "local")
+                        put("tag", "dns-direct")
+                        put("address", "1.1.1.1")
                         put("detour", "direct")
                     })
                 }
                 putJsonArray("rules") {
                     add(buildJsonObject {
                         put("outbound", "direct")
-                        put("server", "dns-local")
+                        put("server", "dns-direct")
                     })
                 }
             })

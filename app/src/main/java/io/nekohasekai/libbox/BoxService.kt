@@ -31,6 +31,8 @@ class BoxService(
                     point.runLoop(true)
                 } catch (e: Exception) {
                     platformInterface.writeLog("sing-box-core loop terminated: ${e.message}")
+                } finally {
+                    platformInterface.onServiceStopped()
                 }
             }.start()
             
