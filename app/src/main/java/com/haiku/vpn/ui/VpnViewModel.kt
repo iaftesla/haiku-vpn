@@ -180,42 +180,6 @@ class VpnViewModel(application: Application) : AndroidViewModel(application) {
                 publicKey = "p1Lh_O6cK_hE8-t6H0Q25ZvxD_dE7qf9Z1S2T3U4V5W",
                 sni = "yahoo.co.jp",
                 uuid = "b7a2d8e9-5f21-4f11-8280-928919013c72"
-            ),
-            RealityConfig(
-                name = "Sumida Flow",
-                countryCode = "jp",
-                address = "tokyo.haikuvpn.org",
-                port = 443,
-                publicKey = "e5R_a8K_mQ1T9eB4H2V0ZvxD_dE7qf9Z1S2T3U4V5W",
-                sni = "nintendo.co.jp",
-                uuid = "c8b3e9a0-6a32-5c22-9391-a39020124d83"
-            ),
-            RealityConfig(
-                name = "Silicon Forest",
-                countryCode = "us",
-                address = "us-west.haikuvpn.org",
-                port = 443,
-                publicKey = "d9G_s2D_aX3K8wV9F0ZvxD_dE7qf9Z1S2T3U4V5W",
-                sni = "wikipedia.org",
-                uuid = "d9e4a8b0-7b23-6c12-8490-b28910123e72"
-            ),
-            RealityConfig(
-                name = "Frankfurt Rhine",
-                countryCode = "de",
-                address = "de.haikuvpn.org",
-                port = 443,
-                publicKey = "a2B_w9K_pL8T0eH5F3ZvxD_dE7qf9Z1S2T3U4V5W",
-                sni = "google.de",
-                uuid = "e0b5c9a0-8a21-7d12-9382-c28901234d83"
-            ),
-            RealityConfig(
-                name = "Helsinki Aurora",
-                countryCode = "fi",
-                address = "fi.haikuvpn.org",
-                port = 443,
-                publicKey = "f3F_x2K_vN9M8wQ4V0ZvxD_dE7qf9Z1S2T3U4V5W",
-                sni = "yle.fi",
-                uuid = "f1b8a9c0-9b32-8c22-0493-d28912345e72"
             )
         )
         _nodes.value = fallback

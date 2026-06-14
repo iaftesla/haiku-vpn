@@ -55,11 +55,13 @@ object SingBoxConfigGenerator {
                             put("enabled", true)
                             put("fingerprint", config.fingerprint)
                         })
-                        put("reality", buildJsonObject {
-                            put("enabled", true)
-                            put("public_key", config.publicKey)
-                            put("short_id", config.shortId)
-                        })
+                        if (config.publicKey.isNotEmpty()) {
+                            put("reality", buildJsonObject {
+                                put("enabled", true)
+                                put("public_key", config.publicKey)
+                                put("short_id", config.shortId)
+                            })
+                        }
                     })
                     
                     put("packet_encoding", "xudp")

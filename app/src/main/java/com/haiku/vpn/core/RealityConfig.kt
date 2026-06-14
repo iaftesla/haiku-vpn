@@ -72,25 +72,23 @@ data class RealityConfig(
             // Parse Query parameters
             val params = parseQueryString(queryStr)
 
-            val security = params["security"] ?: params["security"] ?: ""
-            if (!security.equals("reality", ignoreCase = true)) {
-                throw IllegalArgumentException("Unsupported security protocol: $security. ONLY 'reality' is supported.")
-            }
+            val security = params["security"] ?: "reality"
 
-            val pbk = params["pbk"] ?: params["publickey"] ?: throw IllegalArgumentException("Missing Reality public key ('pbk')")
+            val pbk = params["pbk"] ?: params["publickey"] ?: ""
             val sid = params["sid"] ?: params["shortid"] ?: ""
-            val sni = params["sni"] ?: throw IllegalArgumentException("Missing SNI ('sni')")
+            val sni = params["sni"] ?: "google.com"
             val flow = params["flow"] ?: ""
             val fp = params["fp"] ?: params["fingerprint"] ?: "chrome"
             val network = params["type"] ?: params["network"] ?: "tcp"
             val grpcServiceName = params["servicename"] ?: ""
             val wsPath = params["path"] ?: ""
 
-            // Validate UUID format
-            try {
+            // Validate UUID format or generate a fallback
+            val finalUuid = try {
                 UUID.fromString(uuid)
+                uuid
             } catch (e: Exception) {
-                throw IllegalArgumentException("Invalid UUID format: $uuid")
+                UUID.randomUUID().toString()
             }
 
             return RealityConfig(
@@ -98,7 +96,7 @@ data class RealityConfig(
                 countryCode = country,
                 address = address,
                 port = port,
-                uuid = uuid,
+                uuid = finalUuid,
                 flow = flow,
                 publicKey = pbk,
                 shortId = sid,

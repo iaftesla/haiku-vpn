@@ -1,40 +1,54 @@
 package io.nekohasekai.libbox
 
-import java.util.Timer
-import java.util.TimerTask
-import kotlin.random.Random
+import libv2ray.Libv2ray
+import libv2ray.V2RayPoint
 
 /**
- * Stub class mimicking the sing-box-core BoxService.
- * Simulates active connection logs and data transfer speeds for previewing.
+ * Service wrapper that interacts with the real sing-box compiled library via Go Bindings.
  */
 class BoxService(
     private val configJson: String,
     private val platformInterface: PlatformInterface
 ) {
-    private var timer: Timer? = null
+    private var v2rayPoint: V2RayPoint? = null
 
     fun start() {
-        platformInterface.writeLog("sing-box-core stub: initialization success.")
-        platformInterface.writeLog("sing-box-core stub: tunnel established on tun0.")
-        
-        // Start background speed simulation to show traffic updating in the UI
-        timer = Timer().apply {
-            scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    // Simulate speed counts between 10 KiB/s and 4.2 MiB/s
-                    val dlVal = String.format("%.1f", Random.nextDouble(10.0, 1500.0))
-                    val ulVal = String.format("%.1f", Random.nextDouble(5.0, 300.0))
-                    
-                    platformInterface.writeLog("outbound/proxy: $dlVal KiB/s download, $ulVal KiB/s upload")
+        try {
+            platformInterface.writeLog("sing-box-core: starting tunnel...")
+            
+            // Instantiating the real JNI callback interface
+            val supportsSet = V2RayVPNServiceSupportsSetImpl(platformInterface)
+            
+            // Initialize native Go core runner
+            val point = Libv2ray.newV2RayPoint(supportsSet, false)
+            point.configureFileContent = configJson
+            
+            v2rayPoint = point
+            
+            // Run core loop in background thread since runLoop blocks execution
+            Thread {
+                try {
+                    point.runLoop(true)
+                } catch (e: Exception) {
+                    platformInterface.writeLog("sing-box-core loop terminated: ${e.message}")
                 }
-            }, 1000, 1500)
+            }.start()
+            
+            platformInterface.writeLog("sing-box-core: tunnel initialized and loop started.")
+        } catch (e: Exception) {
+            platformInterface.writeLog("sing-box-core failed to start: ${e.message}")
+            throw e
         }
     }
 
     fun close() {
-        timer?.cancel()
-        timer = null
-        platformInterface.writeLog("sing-box-core stub: service connection closed.")
+        try {
+            v2rayPoint?.stopLoop()
+        } catch (e: Exception) {
+            platformInterface.writeLog("sing-box-core error stopping service: ${e.message}")
+        } finally {
+            v2rayPoint = null
+            platformInterface.writeLog("sing-box-core: service stopped.")
+        }
     }
 }
